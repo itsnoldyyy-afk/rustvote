@@ -1,6 +1,7 @@
 FROM rust:latest AS builder
 
 WORKDIR /app
+RUN mkdir -p /app/data && chmod 777 /app/data
 COPY Cargo.toml Cargo.lock ./
 COPY src ./src
 COPY migrations ./migrations
