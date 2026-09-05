@@ -1,7 +1,6 @@
 FROM rust:latest AS builder
 
 WORKDIR /app
-RUN mkdir -p /app/data && chmod 777 /app/data
 COPY Cargo.toml Cargo.lock ./
 COPY src ./src
 COPY migrations ./migrations
@@ -17,6 +16,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+ARG RUSTVOTE_DEPLOY_VERSION=2
 RUN mkdir -p /app/data && chmod 777 /app/data
 
 COPY --from=builder /app/target/release/rustvote /app/rustvote
