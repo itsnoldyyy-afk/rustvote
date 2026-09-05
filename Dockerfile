@@ -25,7 +25,7 @@ COPY --from=builder /app/templates /app/templates
 COPY --from=builder /app/static /app/static
 
 ENV HOST=0.0.0.0
-ENV DATABASE_URL=sqlite:///tmp/rustvote.db
+ENV DATABASE_URL=sqlite::memory:
 
 EXPOSE 10000
 CMD ["/app/rustvote"]

@@ -12,7 +12,7 @@ use axum::{
 };
 use rand_core::OsRng;
 use serde::Deserialize;
-use sqlx::SqlitePool;
+use sqlx::{sqlite::SqlitePoolOptions, SqlitePool};
 use std::{
     collections::HashMap,
     net::SocketAddr,
@@ -192,7 +192,9 @@ async fn main() {
     let database_url = std::env::var("DATABASE_URL")
         .unwrap_or_else(|_| "sqlite://rustvote.db".to_string());
 
-    let db = SqlitePool::connect(&database_url)
+    let db = SqlitePoolOptions::new()
+        .max_connections(1)
+        .connect(&database_url)
         .await
         .expect("Failed to connect to database");
 
