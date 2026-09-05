@@ -17,6 +17,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+RUN mkdir -p /app/data && chmod 777 /app/data
 
 COPY --from=builder /app/target/release/rustvote /app/rustvote
 COPY --from=builder /app/migrations /app/migrations
