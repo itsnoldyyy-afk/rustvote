@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard | RustVote</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/app.js" defer></script>
+</head>
+<body>
+    <header class="site-header"><a class="brand" href="/">Rust<span class="brand-mark">Vote</span></a><nav class="site-nav"><a href="/admin/candidates">Candidates</a><a href="/results">Results</a></nav></header>
+    <main class="dashboard-page">
+        <h1>Admin Dashboard</h1>
+        <p>Monitor participation and manage the active student election.</p>
+        <div class="card-grid">
+            <div class="stat"><strong>{{ total_voters }}</strong><span>Total voters</span></div>
+            <div class="stat"><strong>{{ total_votes }}</strong><span>Total votes</span></div>
+            <div class="stat"><strong>{{ voting_percentage }}%</strong><span>Voting percentage</span></div>
+        </div>
+        <section class="dashboard-toolbar panel">
+            <div>
+                <h2>Election controls</h2>
+                <p>Manage candidates, inspect results, and monitor voter participation.</p>
+            </div>
+            <div class="actions"><a class="button" href="/admin/candidates">Manage candidates</a><a class="button button-secondary" href="/results">View results</a><form method="post" action="/admin/logout" data-loading><button type="submit" class="button-secondary">Log out</button></form></div>
+        </section>
+
+        <section class="voter-section">
+            <div class="section-heading">
+                <div>
+                    <h2>Registered voters</h2>
+                    <p>Review registration details and voting status.</p>
+                </div>
+                <span class="section-count">{{ total_voters }} voters</span>
+            </div>
+            {% if voters.is_empty() %}
+            <p class="notice">No voters have registered yet.</p>
+            {% else %}
+            <div class="table-wrap">
+                <table class="voter-table">
+                    <thead>
+                        <tr><th>Student ID</th><th>Full name</th><th>Registered</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                    {% for voter in voters %}
+                        <tr>
+                            <td data-label="Student ID"><strong>{{ voter.student_id }}</strong></td>
+                            <td data-label="Full name">{{ voter.full_name }}</td>
+                            <td data-label="Registered">{{ voter.created_at }}</td>
+                            <td data-label="Status">
+                                {% if voter.has_voted %}
+                                <span class="status status-complete">Voted</span>
+                                {% else %}
+                                <span class="status status-pending">Not voted</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </section>
+    </main>
+    <footer>RustVote administration</footer>
+</body>
+</html>

@@ -1,0 +1,16 @@
+[package]
+name = "rustvote"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["full"] }
+sqlx = { version = "0.8", features = ["runtime-tokio", "sqlite", "macros", "migrate"] }
+dotenvy = "0.15"
+argon2 = "0.5"
+askama = "0.14"
+serde = { version = "1", features = ["derive"] }
+rand_core = { version = "0.6", features = ["getrandom"] }
+uuid = { version = "1", features = ["v4"] }
+tower-http = { version = "0.6", features = ["fs"] }

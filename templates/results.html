@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Election Results | RustVote</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="site-header"><a class="brand" href="/">Rust<span class="brand-mark">Vote</span></a><nav class="site-nav"><a href="/admin/dashboard">Dashboard</a><a href="/admin/candidates">Candidates</a></nav></header>
+    <main>
+        <h1>Election Results</h1>
+        <p class="notice success">Total votes recorded: {{ total_votes }}</p>
+        <table>
+            <thead>
+                <tr><th>Candidate</th><th>Position</th><th>Votes</th></tr>
+            </thead>
+            <tbody>
+            {% if rows.is_empty() %}
+                <tr><td colspan="3">No votes have been recorded yet.</td></tr>
+            {% endif %}
+            {% for row in rows %}
+                <tr>
+                    <td>{{ row.candidate_name }}</td>
+                    <td>{{ row.position }}</td>
+                    <td>{{ row.vote_count }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p><a href="/admin/dashboard">Back to dashboard</a></p>
+    </main>
+    <footer>RustVote administration</footer>
+</body>
+</html>

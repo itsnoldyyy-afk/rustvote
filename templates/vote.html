@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vote | RustVote</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/app.js" defer></script>
+</head>
+<body>
+    <header class="site-header"><a class="brand" href="/">Rust<span class="brand-mark">Vote</span></a><nav class="site-nav"><a href="/dashboard">Dashboard</a></nav></header>
+    <main>
+        <section class="panel">
+        <h1>Cast your vote</h1>
+        <p>Choose one candidate for each position. You can review your choices before submitting.</p>
+        <p class="notice">{{ error }}</p>
+        <form method="post" action="/vote" data-loading>
+            {% for group in groups %}
+            <fieldset>
+                <legend>{{ group.position }}</legend>
+                {% if group.candidates.is_empty() %}
+                <p class="notice">No candidates are available for this position yet.</p>
+                {% endif %}
+                {% for candidate in group.candidates %}
+                <label class="choice">
+                    <input type="radio" name="{{ group.field_name }}" value="{{ candidate.id }}" required>
+                    <strong>{{ candidate.full_name }}</strong><br>
+                    <span>{{ candidate.platform }}</span>
+                </label>
+                <br>
+                {% endfor %}
+            </fieldset>
+            {% endfor %}
+            <button type="submit">Review vote</button>
+        </form>
+        <p><a href="/dashboard">Back to dashboard</a></p>
+        </section>
+    </main>
+    <footer>RustVote student council election</footer>
+</body>
+</html>

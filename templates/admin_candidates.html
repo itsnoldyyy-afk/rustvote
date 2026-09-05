@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Candidates | RustVote</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/app.js" defer></script>
+</head>
+<body>
+    <header class="site-header"><a class="brand" href="/">Rust<span class="brand-mark">Vote</span></a><nav class="site-nav"><a href="/admin/dashboard">Dashboard</a><a href="/results">Results</a></nav></header>
+    <main>
+        <h1>Manage Candidates</h1>
+        <p class="notice">{{ error }}</p>
+
+        <section class="panel">
+        <h2>Add candidate</h2>
+        <form method="post" action="/admin/candidates" data-loading>
+            <label for="new-name">Full name</label>
+            <input id="new-name" name="full_name" required>
+
+            <label for="new-position">Position</label>
+            <input id="new-position" name="position" required>
+
+            <label for="new-platform">Platform</label>
+            <textarea id="new-platform" name="platform"></textarea>
+
+            <label for="new-photo">Photo URL</label>
+            <input id="new-photo" name="photo_url" type="url">
+
+            <button type="submit">Add candidate</button>
+        </form>
+        </section>
+
+        <h2>Current candidates</h2>
+        {% if candidates.is_empty() %}
+        <p class="notice">No candidates have been added yet.</p>
+        {% endif %}
+        {% for candidate in candidates %}
+        <article>
+            <h3>{{ candidate.full_name }}</h3>
+            <p>{{ candidate.position }}</p>
+            <form class="candidate-edit-form" method="post" action="/admin/candidates/{{ candidate.id }}/edit" data-loading>
+                <label>Full name <input name="full_name" value="{{ candidate.full_name }}" required></label>
+                <label>Position <input name="position" value="{{ candidate.position }}" required></label>
+                <label>Platform <textarea name="platform">{{ candidate.platform }}</textarea></label>
+                <label>Photo URL <input name="photo_url" type="url" value="{{ candidate.photo_url }}"></label>
+                <button type="submit">Save changes</button>
+            </form>
+            <form method="post" action="/admin/candidates/{{ candidate.id }}/delete" data-loading>
+                <button type="submit" class="button-danger">Delete candidate</button>
+            </form>
+        </article>
+        {% endfor %}
+
+        <p><a href="/admin/dashboard">Back to dashboard</a></p>
+    </main>
+    <footer>RustVote administration</footer>
+</body>
+</html>

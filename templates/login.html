@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | RustVote</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/app.js" defer></script>
+</head>
+<body>
+    <header class="site-header"><a class="brand" href="/">Rust<span class="brand-mark">Vote</span></a><nav class="site-nav"><a href="/register">Register</a></nav></header>
+    <main class="page-narrow">
+        <section class="panel">
+        <h1>Log in to RustVote</h1>
+        <p class="notice">{{ error }}</p>
+        <form method="post" action="/login" data-loading>
+            <label for="student_id">Student ID</label>
+            <input id="student_id" name="student_id" required>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required>
+
+            <button type="submit">Log in</button>
+        </form>
+        <p>New voter? <a href="/register">Create an account</a>.</p>
+        </section>
+    </main>
+    <footer>RustVote student council election</footer>
+</body>
+</html>

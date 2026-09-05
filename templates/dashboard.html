@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard | RustVote</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/app.js" defer></script>
+</head>
+<body>
+    <header class="site-header"><a class="brand" href="/">Rust<span class="brand-mark">Vote</span></a><nav class="site-nav"><a href="/vote">Vote</a></nav></header>
+    <main>
+        <section class="panel">
+            <h1>Welcome, {{ full_name }}!</h1>
+            <p>Your account is ready for the student council election.</p>
+            <div class="actions"><a class="button" href="/vote">Go to the voting page</a><form method="post" action="/logout" data-loading><button type="submit" class="button-secondary">Log out</button></form></div>
+        </section>
+    </main>
+    <footer>RustVote student council election</footer>
+</body>
+</html>

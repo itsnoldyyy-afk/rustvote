@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Confirm Vote | RustVote</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/app.js" defer></script>
+</head>
+<body>
+    <header class="site-header"><a class="brand" href="/">Rust<span class="brand-mark">Vote</span></a><nav class="site-nav"><a href="/vote">Change choices</a></nav></header>
+    <main class="page-narrow">
+        <section class="panel">
+        <h1>Confirm your vote</h1>
+        <p class="notice">Are you sure you want to submit your vote?</p>
+        <p>Your vote cannot be changed after submission.</p>
+        <form method="post" action="/vote/confirmation" data-loading>
+            <input type="hidden" name="president" value="{{ president }}">
+            <input type="hidden" name="vice_president" value="{{ vice_president }}">
+            <input type="hidden" name="secretary" value="{{ secretary }}">
+            <input type="hidden" name="treasurer" value="{{ treasurer }}">
+            <button type="submit">Submit final vote</button>
+        </form>
+        <p><a href="/vote">Change selections</a></p>
+        </section>
+    </main>
+    <footer>RustVote student council election</footer>
+</body>
+</html>
